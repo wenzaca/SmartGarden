@@ -1,0 +1,7 @@
+Flask==1.0.2
+boto3==1.9.118
+AWSIoTPythonSDK==1.4.4
+#spidev==3.4
+numpy==1.16.2
+flask_wtf==0.14.2
+schedule==0.6.0
