@@ -135,7 +135,7 @@ function getChartData() {
                 tempArr.push(e.Items.temperature);
                 humArr.push(e.Items.humidity);
                 soilArr.push(e.Items.moisture1);
-                lightArr.push(e.Items.moisture1);
+                lightArr.push(e.Items.light);
 
                 let datetime = e.datetimeid;
                 // console.log(datetime);

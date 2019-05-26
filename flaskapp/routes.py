@@ -1,7 +1,7 @@
 import sys
 
 import jsonconverter as jsonc
-import repository
+import repository_dynamo
 from flask import render_template, url_for, redirect, request, jsonify, session, flash
 from flaskapp import app
 from flaskapp.forms import LoginForm
@@ -15,7 +15,7 @@ def login():
     else:
         form = LoginForm()
         if form.validate_on_submit():
-            data = repository.login()
+            data = repository_dynamo.login()
             for d in data:
                 if form.username.data == d['username'] and form.password.data == d['password']:
                     session['logged_in'] = True
@@ -65,7 +65,7 @@ def api_getMaxData():
         try:
             data = jsonc.json.loads(request.data)
             if data['moisture'] is not '':
-                repository.post_max_data(data)
+                repository_dynamo.post_max_data(data)
 
             return str(data)
         except:
@@ -74,7 +74,7 @@ def api_getMaxData():
             return None
     elif request.method == 'GET':
         try:
-            data = jsonc.data_to_json(repository.get_max_data())
+            data = jsonc.data_to_json(repository_dynamo.get_max_data())
             loaded_data = jsonc.json.loads(data)
             return jsonify(loaded_data)
         except:
@@ -88,7 +88,7 @@ def api_getMaxData():
 def api_getData():
     if request.method == 'POST':
         try:
-            data = jsonc.data_to_json(repository.get_data())
+            data = jsonc.data_to_json(repository_dynamo.get_data())
             loaded_data = jsonc.json.loads(data)
             # print(loaded_data)
             return jsonify(loaded_data)
@@ -102,7 +102,7 @@ def api_getData():
 def api_getChartData():
     if request.method == 'POST':
         try:
-            data = jsonc.data_to_json(repository.get_chart_data())
+            data = jsonc.data_to_json(repository_dynamo.get_chart_data())
             loaded_data = jsonc.json.loads(data)
             # print(loaded_data)
             return jsonify(loaded_data)
@@ -115,14 +115,10 @@ def api_getChartData():
 @app.route("/api/status", methods=['GET', 'POST'])
 def status():
     try:
-        data = jsonc.data_to_json(repository.get_status())
+        data = jsonc.data_to_json(repository_dynamo.get_status())
         loaded_data = jsonc.json.loads(data)
         # print(loaded_data)
         return jsonify(loaded_data)
-
-        status = loaded_data[0].status
-
-        return status
     except:
         print(sys.exc_info()[0])
         print(sys.exc_info()[1])
@@ -132,7 +128,7 @@ def status():
 @app.route("/changeStatus/<status>")
 def changeStatus(status):
     try:
-        repository.post_status(status)
+        repository_dynamo.post_status(status)
 
         return status
     except:

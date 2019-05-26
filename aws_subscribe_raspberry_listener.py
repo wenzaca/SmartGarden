@@ -6,6 +6,8 @@ import aws_publish_raspberry_core as core
 import validate_sensors_values as sensors
 import watering_relay_event as water
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
+import repository_dynamo
+import validate_sensors_values
 
 host = "arkau3u0cw2s4-ats.iot.eu-west-1.amazonaws.com"
 rootCAPath = "certs/rootca.pem"
@@ -45,6 +47,12 @@ def watering_subscribe_action(client, userdata, message):
     data = json.loads(byte_payload)
     water.watering_invocation(data)
 
+def max_data_update_action(client, userdata, message):
+    print('Received a message: {}'.format(message.payload))
+    byte_payload = message.payload.decode('utf8').replace("'", '"')
+    data = json.loads(byte_payload)
+    validate_sensors_values.update_sensor_value(data)
+
 
 def readings_subscribe_action(client, userdata, message):
     print('Received a message: {}'.format(message.payload))
@@ -75,7 +83,18 @@ my_rpi.connect()
 my_rpi.subscribe('smartgarden/status', 1, status_subscribe_action)
 my_rpi.subscribe('smartgarden/watering', 1, watering_subscribe_action)
 my_rpi.subscribe('smartgarden/readings', 1, readings_subscribe_action)
+my_rpi.subscribe('smartgarden/maxdata', 1, max_data_update_action)
+
+
+if repository_dynamo.get_status()[0]['status'] == 'A':
+    automatic = True
+
 
 # Publish to the same topic in a loop forever
 while True:
-    sleep(0.001)
+    pass
+
+
+
+
+

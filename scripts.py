@@ -3,7 +3,7 @@ from multiprocessing import Process
 
 def script1():
     while True:
-        pass
+        import aws_subscribe_raspberry_listener
 
 
 def script2():

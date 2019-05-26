@@ -3,7 +3,6 @@ from datetime import date
 
 import aws_publish_raspberry_core as core
 import boto3
-import validate_sensors_values as sensors
 
 
 def login():
@@ -28,7 +27,6 @@ def post_max_data(data):
             "Items": [data]
         }
         core.publish_max_data(new_data)
-        sensors.update_sensor_value(data)
     except:
         import sys
         print(sys.exc_info()[0])
@@ -50,7 +48,7 @@ def get_max_data():
 
         n = 1  # get latest data
         data = items[:n]
-        return data
+        return data[0]
     except:
         import sys
         print(sys.exc_info()[0])
