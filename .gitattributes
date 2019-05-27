@@ -1,5 +1,6 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 
-*.css linguist-vendored=false 
+*static* linguist-vendored=false
+*static/js/* linguist-vendored=true
 
