@@ -8,7 +8,6 @@ docutils*
 flask/*
 Flask-*
 *-info
-.*
 werk*
 wt*
 urllib3
@@ -25,3 +24,5 @@ flask_*
 *.pem
 six.py
 *cache*
+.idea
+*.DS_Store
