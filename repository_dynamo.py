@@ -1,6 +1,7 @@
 import datetime as datetime
 from datetime import date
 
+import log_util
 import aws_publish_raspberry_core as core
 import boto3
 
@@ -16,8 +17,8 @@ def login():
         return items
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
 
 
 def post_max_data(data):
@@ -29,8 +30,8 @@ def post_max_data(data):
         core.publish_max_data(new_data)
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
 
 
 def get_max_data():
@@ -51,8 +52,8 @@ def get_max_data():
         return data[0]
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
 
 
 def get_data():
@@ -75,8 +76,8 @@ def get_data():
         return data
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
 
 
 def get_chart_data():
@@ -101,8 +102,8 @@ def get_chart_data():
         return data_reversed
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
 
 
 def get_status():
@@ -125,8 +126,8 @@ def get_status():
         return data
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
 
 
 def post_status(status):
@@ -140,5 +141,5 @@ def post_status(status):
         core.publish_status(new_item)
     except:
         import sys
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
