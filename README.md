@@ -1,4 +1,4 @@
-# Smart Garden ![smartgarden](https://github.com/wenzaca/SmartGardenServer/blob/master/flaskapp/static/img/logo.png)
+# Smart Garden
 Smart Garden - IoT Project
 
 ## About
