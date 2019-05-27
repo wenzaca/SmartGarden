@@ -1,4 +1,4 @@
-# [Smart Garden](https://github.com/wenzaca/SmartGardenServer/tree/master/flaskapp/static/img/logo.png)
+# [Smart Garden](https://github.com/wenzaca/SmartGardenServer/blob/master/flaskapp/static/img/logo.png)
 Smart Garden - IoT Project
 
 ## About
@@ -34,7 +34,7 @@ The user is also able to control the system using Alexa assistant. Check the Sma
 
 Plug the sensor on the following ports:
 
-![RaspberyPI](https://github.com/wenzaca/SmartGardenServer/tree/master/flaskapp/static/img/Rasp.png)
+![RaspberyPI](https://github.com/wenzaca/SmartGardenServer/blob/master/flaskapp/static/img/Rasp.png)
 
 - Relay Board Watering: Pin 38 (GPIO20).
 - Relay Board Fans: Pin 40 (GPIO21).
@@ -62,7 +62,7 @@ Plug the sensor on the following ports:
 | Pin 11 (GPIO27)| Pin 2 (VREF) | 
 |                | Pin 3        |
 | Pin 6  (GND)   | Pin 4 (GND)  |
-** Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
+ Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
 
 ### Cloud
 - AWS IoT:
@@ -89,7 +89,7 @@ Plug the sensor on the following ports:
     - smartgarden_readings (id, date)
     - smartgarden_status (id, date)
 - Alexa Custom Skill
-- Lambda Function 
+- Lambda Function for the Custom Skills
 
 ## How to run
 Ensure to have:
@@ -98,18 +98,18 @@ Ensure to have:
 
 To run:
 - Server:
-    - pip3 install -r requirements -t .
-    - sudo nohup server.py &
+    - ```pip3 install -r requirements -t .```
+    - ```sudo nohup server.py &```
 - Script (readings):
-    - pip3 install -r requirements -t .
-    - sudo nohup script.py &
+    - ```pip3 install -r requirements -t .```
+    - ```sudo nohup script.py &```
     
 Useful commands:
-- Get IP: ping raspberrypi.local
-- Connect: ssh pi@IP
-- Transfer File: scp filename pi@IP:/home/pi
-- Find server process (MAC): netstat -vanp tcp | grep 5000
-- Kill process: kill [port number]
+- Get IP: ```ping raspberrypi.local```
+- Connect: ```ssh pi@IP```
+- Transfer File: ```scp filename pi@IP:/home/pi```
+- Find server process (MAC): ```netstat -vanp tcp | grep 5000```
+- Kill process: ```kill [port number]```
 
 ## References
 - Project: https://www.hackster.io/mokxf16/smart-garden-raspberry-pi-arduino-65c7b7
