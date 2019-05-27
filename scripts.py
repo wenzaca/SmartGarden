@@ -1,4 +1,5 @@
 from multiprocessing import Process
+import log_util
 
 
 def script1():
@@ -12,13 +13,13 @@ def script2():
 
 
 if __name__ == '__main__':
-    print('Running scripts...')
+    log_util.log_info(__name__, 'Running scripts...')
     proc1 = Process(target=script1)
     proc1.start()
-    print('Reading script running...')
+    log_util.log_info(__name__, 'Reading script running...')
 
     proc2 = Process(target=script2)
     proc2.start()
-    print('Status script running...')
+    log_util.log_info(__name__, 'Status script running...')
 
-    print('Scripts running')
+    log_util.log_info(__name__, 'Scripts running')

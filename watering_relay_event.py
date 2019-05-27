@@ -6,6 +6,7 @@
 import threading
 # Import SDK packages
 from time import sleep
+import log_util
 
 relay_pin = 20
 
@@ -15,7 +16,7 @@ relay_pin = 20
 # GPIO.output(relay_pin, 1)
 
 def job(str):
-    print(str)
+    log_util.log_info(__name__, str)
     # GPIO.output(relay_pin, 0)
     sleep(3.2)
     # GPIO.output(relay_pin, 1)
@@ -24,7 +25,7 @@ def job(str):
 
 
 def stopWatering(str):
-    print(str)
+    log_util.log_info(__name__, str)
     # GPIO.output(relay_pin, 1)
 
 

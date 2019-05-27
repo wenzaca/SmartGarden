@@ -5,6 +5,7 @@ import repository_dynamo
 from flask import render_template, url_for, redirect, request, jsonify, session, flash
 from flaskapp import app
 from flaskapp.forms import LoginForm
+import log_util
 
 
 # login
@@ -19,8 +20,10 @@ def login():
             for d in data:
                 if form.username.data == d['username'] and form.password.data == d['password']:
                     session['logged_in'] = True
+                    log_util.log_debug(__name__, "User Logged in correctly, username: {}".format(d['username']))
                     return redirect(url_for('dashboard'))
                 else:
+                    log_util.log_debug(__name__, "User not authenticate, username: {}".format(d['username']))
                     flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
@@ -65,21 +68,23 @@ def api_getMaxData():
         try:
             data = jsonc.json.loads(request.data)
             if data['moisture'] is not '':
+                log_util.log_debug(__name__, "Received max data, sending to DynamoDB: {}".format(str(data)))
                 repository_dynamo.post_max_data(data)
 
             return str(data)
         except:
-            print(sys.exc_info()[0])
-            print(sys.exc_info()[1])
+            log_util.log_error(__name__, sys.exc_info()[0])
+            log_util.log_error(__name__, sys.exc_info()[1])
             return None
     elif request.method == 'GET':
         try:
             data = jsonc.data_to_json(repository_dynamo.get_max_data())
             loaded_data = jsonc.json.loads(data)
+            log_util.log_debug(__name__, "Getting max data from DynamoDB: {}".format(str(loaded_data)))
             return jsonify(loaded_data)
         except:
-            print(sys.exc_info()[0])
-            print(sys.exc_info()[1])
+            log_util.log_error(__name__, sys.exc_info()[0])
+            log_util.log_error(__name__, sys.exc_info()[1])
             return None
 
 
@@ -90,11 +95,11 @@ def api_getData():
         try:
             data = jsonc.data_to_json(repository_dynamo.get_data())
             loaded_data = jsonc.json.loads(data)
-            # print(loaded_data)
+            log_util.log_debug(__name__, "Getting readings data from DynamoDB: {}".format(str(loaded_data)))
             return jsonify(loaded_data)
         except:
-            print(sys.exc_info()[0])
-            print(sys.exc_info()[1])
+            log_util.log_error(__name__, sys.exc_info()[0])
+            log_util.log_error(__name__, sys.exc_info()[1])
             return None
 
 
@@ -104,11 +109,11 @@ def api_getChartData():
         try:
             data = jsonc.data_to_json(repository_dynamo.get_chart_data())
             loaded_data = jsonc.json.loads(data)
-            # print(loaded_data)
+            log_util.log_debug(__name__, "Getting chart data from DynamoDB: {}".format(str(loaded_data)))
             return jsonify(loaded_data)
         except:
-            print(sys.exc_info()[0])
-            print(sys.exc_info()[1])
+            log_util.log_error(__name__, sys.exc_info()[0])
+            log_util.log_error(__name__, sys.exc_info()[1])
             return None
 
 
@@ -117,21 +122,21 @@ def status():
     try:
         data = jsonc.data_to_json(repository_dynamo.get_status())
         loaded_data = jsonc.json.loads(data)
-        # print(loaded_data)
+        log_util.log_debug(__name__, "Getting status from DynamoDB: {}".format(str(loaded_data)))
         return jsonify(loaded_data)
     except:
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
         return None
 
 
 @app.route("/changeStatus/<status>")
 def changeStatus(status):
     try:
+        log_util.log_debug(__name__, "Received status change request, sending to DynamoDB: {}".format(str(status)))
         repository_dynamo.post_status(status)
-
         return status
     except:
-        print(sys.exc_info()[0])
-        print(sys.exc_info()[1])
+        log_util.log_error(__name__, sys.exc_info()[0])
+        log_util.log_error(__name__, sys.exc_info()[1])
         return None

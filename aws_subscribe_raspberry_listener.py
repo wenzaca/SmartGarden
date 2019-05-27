@@ -1,6 +1,6 @@
 # Import SDK packages
 import json
-from time import sleep
+import log_util
 
 import aws_publish_raspberry_core as core
 import validate_sensors_values as sensors
@@ -19,46 +19,51 @@ automatic = False
 
 def status_subscribe_action(client, userdata, message):
     global automatic
-    print('Received a message: {}'.format(message.payload))
+    log_util.log_info(__name__, 'Received a message: {}'.format(message.payload))
     byte_payload = message.payload.decode('utf8').replace("'", '"')
     data = json.loads(byte_payload)
     status = data['status']
     if status == 'A':
+        log_util.log_debug(__name__, "Turned ON automatic")
         automatic = True
     elif status == 'M':
         automatic = False
+        log_util.log_debug(__name__, "Turned OFF automatic")
     elif status == 'F':
         watering = {
             "action": "OFF",
             "requester": "MANUAL"
         }
+        log_util.log_debug(__name__, "Turned OFF Manual")
         core.publish_watering(watering)
     elif status == 'O':
         watering = {
             "action": "ON",
             "requester": "MANUAL"
         }
+        log_util.log_debug(__name__, "Turned ON Manual")
         core.publish_watering(watering)
 
 
 def watering_subscribe_action(client, userdata, message):
-    print('Received a message: {}'.format(message.payload))
+    log_util.log_info(__name__, 'Received a message: {}'.format(message.payload))
     byte_payload = message.payload.decode('utf8').replace("'", '"')
     data = json.loads(byte_payload)
     water.watering_invocation(data)
 
 def max_data_update_action(client, userdata, message):
-    print('Received a message: {}'.format(message.payload))
+    log_util.log_info(__name__, 'Received a message: {}'.format(message.payload))
     byte_payload = message.payload.decode('utf8').replace("'", '"')
     data = json.loads(byte_payload)
     validate_sensors_values.update_sensor_value(data)
 
 
 def readings_subscribe_action(client, userdata, message):
-    print('Received a message: {}'.format(message.payload))
+    log_util.log_info(__name__, 'Received a message: {}'.format(message.payload))
     byte_payload = message.payload.decode('utf8').replace("'", '"')
     data = json.loads(byte_payload)
     if automatic:
+        log_util.log_debug(__name__, "Automatic is on, checking the moisture level...")
         if sensors.moisture_level(data['Items']):
             data = {
                 "action": "ON",
@@ -66,7 +71,7 @@ def readings_subscribe_action(client, userdata, message):
             }
             water.watering_invocation(data)
         else:
-            print('The soil is too wet, the moisture level is {}'.format(data['Items']['moisture1']))
+            log_util.log_info(__name__, 'The soil is too wet, the moisture level is {}'.format(data['Items']['moisture1']))
 
 
 my_rpi = AWSIoTMQTTClient("Raspberry_Listener")
@@ -86,7 +91,8 @@ my_rpi.subscribe('smartgarden/readings', 1, readings_subscribe_action)
 my_rpi.subscribe('smartgarden/maxdata', 1, max_data_update_action)
 
 
-if repository_dynamo.get_status()[0]['status'] == 'A':
+if len(repository_dynamo.get_status()) > 0 and repository_dynamo.get_status()[0]['status'] == 'A':
+    log_util.log_debug(__name__, "First status of the system is Automatic")
     automatic = True
 
 

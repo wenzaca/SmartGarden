@@ -1,5 +1,6 @@
 # Import SDK packages
 import json
+import log_util
 
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
@@ -31,20 +32,20 @@ my_rpi.connect()
 
 # Publish to the same topic in a loop forever
 def publish_status(data):
-    print('Publishing a message to {}: {}'.format(topic_status, data))
+    log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_status, data))
     my_rpi.publish(topic_status, json.dumps(data), 1)
 
 
 def publish_watering(data):
-    print('Publishing a message to {}: {}'.format(topic_watering, data))
+    log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_watering, data))
     my_rpi.publish(topic_watering, json.dumps(data), 1)
 
 
 def publish_readings(data):
-    print('Publishing a message to {}: {}'.format(topic_readings, data))
+    log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_readings, data))
     my_rpi.publish(topic_readings, json.dumps(data), 1)
 
 
 def publish_max_data(data):
-    print('Publishing a message to {}: {}'.format(topic_max_data, data))
+    log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_max_data, data))
     my_rpi.publish(topic_max_data, json.dumps(data), 1)
