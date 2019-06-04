@@ -9,7 +9,7 @@ def script1():
 
 def script2():
     while True:
-        pass
+        import sensor_readings
 
 
 if __name__ == '__main__':
