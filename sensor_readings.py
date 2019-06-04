@@ -20,6 +20,7 @@ def moisture_reading(channel):
         val = spi.xfer2([1, (8 + channel) << 4, 0])
         measure = ((val[1] & 3) << 8) + val[2]
         if measure != 0:
+            measure = (measure/1023)*100
             data[i] = measure
             i += 1
     return sum(data) / len(data)
