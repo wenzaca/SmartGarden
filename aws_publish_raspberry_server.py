@@ -30,22 +30,19 @@ my_rpi.configureMQTTOperationTimeout(5)  # 5 sec
 my_rpi.connect()
 
 
-# Publish to the same topic in a loop forever
+# Publish to the status topic with updates from the Automatic and Manual Button
 def publish_status(data):
     log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_status, data))
     my_rpi.publish(topic_status, json.dumps(data), 1)
 
 
+# Publish to the watering topic requesting for switching ON or OFF the Watering Relay
 def publish_watering(data):
     log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_watering, data))
     my_rpi.publish(topic_watering, json.dumps(data), 1)
 
 
-def publish_readings(data):
-    log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_readings, data))
-    my_rpi.publish(topic_readings, json.dumps(data), 1)
-
-
+# Publish to the max data topic updating the allowed values for turning ON or OFF the Fan
 def publish_max_data(data):
     log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_max_data, data))
     my_rpi.publish(topic_max_data, json.dumps(data), 1)

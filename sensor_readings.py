@@ -3,7 +3,7 @@ from time import sleep
 
 import datetime as datetime
 import spidev  # To communicate with SPI devices
-import aws_publish_raspberry_core as core
+import aws_publish_raspberry_script as core
 
 import log_util
 
@@ -14,7 +14,7 @@ spi.open(0, 0)
 
 # Read MCP3008 data
 def moisture_reading(channel):
-    i = 0;
+    i = 0
     data = []
     while i < 1000:
         val = spi.xfer2([1, (8 + channel) << 4, 0])
@@ -29,7 +29,7 @@ def moisture_reading(channel):
 # Publish to the same topic in a loop forever
 while True:
     try:
-        moisture = moisture_reading
+        moisture = moisture_reading(0)
         log_util.log_info(__name__, "Moisture reading: {}".format(moisture))
         message = {}
         now = datetime.datetime.now()
@@ -40,6 +40,6 @@ while True:
                             "light": 0}
 
         core.publish_readings(message)
-        sleep(3000)
+        sleep(10)
     except KeyboardInterrupt as e:
         log_util.log_error(__name__, "Failed to read the data from the sensor due to {}".format(str(e)))

@@ -4,7 +4,7 @@ import log_util
 
 def script1():
     while True:
-        import aws_subscribe_raspberry_listener
+        import aws_subscribe_raspberry_script
 
 
 def script2():
