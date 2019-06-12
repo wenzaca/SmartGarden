@@ -16,6 +16,7 @@ SPI_PORT = 0
 SPI_DEVICE = 0
 mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
+
 # Read MCP3008 data
 def moisture_reading(channel):
     i = 0
@@ -23,10 +24,10 @@ def moisture_reading(channel):
     while i < 1000:
         value = mcp.read_adc_difference(channel)
         if value != 0:
-            measure = (measure/1023)*100
-            data[i] = measure
+            measure = (value/1023)*100
+            data.append(measure)
             i += 1
-    return sum(data) / len(data)
+    return round(100-(sum(data) / len(data)), 2)
 
 
 # Publish to the same topic in a loop forever
@@ -46,3 +47,4 @@ while True:
         sleep(10)
     except KeyboardInterrupt as e:
         log_util.log_error(__name__, "Failed to read the data from the sensor due to {}".format(str(e)))
+        break
