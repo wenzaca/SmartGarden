@@ -5,3 +5,4 @@ spidev==3.4
 numpy==1.16.2
 flask_wtf==0.14.2
 schedule==0.6.0
+Adafruit-MCP3008==1.0.2

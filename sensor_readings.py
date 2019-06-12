@@ -2,24 +2,27 @@
 from time import sleep
 
 import datetime as datetime
-import spidev  # To communicate with SPI devices
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_MCP3008
 import aws_publish_raspberry_script as core
 
 import log_util
 
 # Start SPI connection
-spi = spidev.SpiDev()  # Created an object
-spi.open(0, 0)
 
+
+# SPI configuration:
+SPI_PORT = 0
+SPI_DEVICE = 0
+mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 # Read MCP3008 data
 def moisture_reading(channel):
     i = 0
     data = []
     while i < 1000:
-        val = spi.xfer2([1, (8 + channel) << 4, 0])
-        measure = ((val[1] & 3) << 8) + val[2]
-        if measure != 0:
+        value = mcp.read_adc_difference(channel)
+        if value != 0:
             measure = (measure/1023)*100
             data[i] = measure
             i += 1
