@@ -36,6 +36,7 @@ while True:
         moisture = moisture_reading(0)
         log_util.log_info(__name__, "Moisture reading: {}".format(moisture))
         message = {}
+        message["id"] = 'id_smartgarden'
         now = datetime.datetime.now()
         message["datetimeid"] = now.isoformat()
         message['Items'] = {"moisture1": moisture,

@@ -99,7 +99,11 @@ if len(repository_dynamo.get_status()) > 0 and repository_dynamo.get_status()[0]
 
 # Publish to the same topic in a loop forever
 while True:
-    pass
+    try:
+        pass
+    except KeyboardInterrupt as e:
+        log_util.log_error(__name__, "User request to stop the system: {}".format(str(e)))
+        break
 
 
 
