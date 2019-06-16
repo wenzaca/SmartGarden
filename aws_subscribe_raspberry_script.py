@@ -2,7 +2,7 @@
 import json
 import log_util
 
-import aws_publish_raspberry_core as core
+import aws_publish_raspberry_server as core
 import validate_sensors_values as sensors
 import watering_relay_event as water
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
@@ -51,6 +51,7 @@ def watering_subscribe_action(client, userdata, message):
     data = json.loads(byte_payload)
     water.watering_invocation(data)
 
+
 def max_data_update_action(client, userdata, message):
     log_util.log_info(__name__, 'Received a message: {}'.format(message.payload))
     byte_payload = message.payload.decode('utf8').replace("'", '"')
@@ -98,7 +99,11 @@ if len(repository_dynamo.get_status()) > 0 and repository_dynamo.get_status()[0]
 
 # Publish to the same topic in a loop forever
 while True:
-    pass
+    try:
+        pass
+    except KeyboardInterrupt as e:
+        log_util.log_error(__name__, "User request to stop the system: {}".format(str(e)))
+        break
 
 
 

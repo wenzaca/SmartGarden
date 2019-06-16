@@ -69,6 +69,7 @@ Plug the sensor on the following ports:
     - Things:
         - Raspberry_Listener
         - Raspberry_Core
+        - Raspberry_Readings
     - Topics:
         - smartgarden/status
         - smartgarden/maxdata
@@ -95,6 +96,12 @@ Plug the sensor on the following ports:
 Ensure to have:
 - Installed python3.
 - Installed and configured your AWS CLI (with a role that has permission to access Dynamodb and AWS IoT).
+- Created folders:
+    - /certs
+        - certificate.pem.crt
+        - private.pem.key
+        - rootca.pem
+    - /log
 
 To run:
 - Server:

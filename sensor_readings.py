@@ -1,38 +1,51 @@
 # Import SDK packages
 from time import sleep
 
-# import spidev # To communicate with SPI devices
-from numpy import interp  # To scale values
+import datetime as datetime
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_MCP3008
+import aws_publish_raspberry_script as core
 
+import log_util
 
 # Start SPI connection
-# spi = spidev.SpiDev() # Created an object
-# spi.open(0,0)
+
+
+# SPI configuration:
+SPI_PORT = 0
+SPI_DEVICE = 0
+mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
+
 
 # Read MCP3008 data
-def analogInput(channel):
-    spi.max_speed_hz = 1350000
-    adc = spi.xfer2([1, (8 + channel) << 4, 0])
-    data = ((adc[1] & 3) << 8) + adc[2]
-    interp(data, [0, 1023], [100, 0])
-    return int(data)
+def moisture_reading(channel):
+    i = 0
+    data = []
+    while i < 1000:
+        value = mcp.read_adc_difference(channel)
+        if value != 0:
+            measure = (value/1023)*100
+            data.append(measure)
+            i += 1
+    return round(100-(sum(data) / len(data)), 2)
 
 
 # Publish to the same topic in a loop forever
 while True:
-    sleep(0.001)
-    # Read data from soil moisture sensor 1
-    '''soilMoisture1 = 100 # Reading from CH0
-    print("Moisture: {}%".format(soilMoisture1))
+    try:
+        moisture = moisture_reading(0)
+        log_util.log_info(__name__, "Moisture reading: {}".format(moisture))
+        message = {}
+        message["id"] = 'id_smartgarden'
+        now = datetime.datetime.now()
+        message["datetimeid"] = now.isoformat()
+        message['Items'] = {"moisture1": moisture,
+                            "temperature": 0,
+                            "humidity": 0,
+                            "light": 0}
 
-
-    loopCount = loopCount+1
-    message = {}
-    message["id"] = 'id_smartgarden'
-
-    now = datetime.datetime.now()
-    message["datetimeid"] = now.isoformat()
-    message['Items'] = {"moisture1": soilMoisture1}
-
-    core.publish_readings(message)
-    '''
+        core.publish_readings(message)
+        sleep(10)
+    except KeyboardInterrupt as e:
+        log_util.log_error(__name__, "Failed to read the data from the sensor due to {}".format(str(e)))
+        break

@@ -2,7 +2,8 @@ import datetime as datetime
 from datetime import date
 
 import log_util
-import aws_publish_raspberry_core as core
+
+import aws_publish_raspberry_server as core
 import boto3
 
 

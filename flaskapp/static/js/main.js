@@ -193,5 +193,5 @@ $(document).ready(function () {
         getData();
         getChartData();
         getSettings();
-    }, 30000);
+    }, 9000);
 })
