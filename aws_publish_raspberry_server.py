@@ -42,7 +42,7 @@ def publish_watering(data):
     my_rpi.publish(topic_watering, json.dumps(data), 1)
 
 
-# Publish to the max data topic updating the allowed values for turning ON or OFF the Fan
+# Publish the new evaluated data set via front end
 def publish_max_data(data):
     log_util.log_info(__name__, 'Publishing a message to {}: {}'.format(topic_max_data, data))
     my_rpi.publish(topic_max_data, json.dumps(data), 1)

@@ -136,3 +136,5 @@ Useful commands:
 - Change logs from print to the Logger Library.
 - Update queries to return the latest data not per data.
 - Create new tables for Watering and Fans status.
+- Add new sensor readings methods
+- Split script from server 
