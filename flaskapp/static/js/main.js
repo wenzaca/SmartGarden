@@ -100,7 +100,7 @@ function getSettings() {
 function getData() {
     jQuery.ajax({
         url: "/api/getData",
-        type: "POST",
+        type: "GET",
         success: function (ndata) {
             tempValue = ndata[0].Items.temperature;
             humValue = ndata[0].Items.humidity;
@@ -119,7 +119,7 @@ function getData() {
 function getChartData() {
     jQuery.ajax({
         url: "/api/getChartData",
-        type: "POST",
+        type: "GET",
         success: function (ndata) {
             // console.log(ndata)
             const chartData = ndata;

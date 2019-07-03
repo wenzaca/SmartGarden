@@ -98,7 +98,7 @@ def api_getMaxData():
 # api routes
 @app.route("/api/getData", methods=['POST', 'GET'])
 def api_getData():
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
             data = jsonc.data_to_json(repository_dynamo.get_data())
             loaded_data = jsonc.json.loads(data)
@@ -112,7 +112,7 @@ def api_getData():
 
 @app.route("/api/getChartData", methods=['POST', 'GET'])
 def api_getChartData():
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
             data = jsonc.data_to_json(repository_dynamo.get_chart_data())
             loaded_data = jsonc.json.loads(data)
