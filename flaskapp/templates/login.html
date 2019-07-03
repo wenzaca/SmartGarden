@@ -75,6 +75,10 @@
                         {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+
+                {% if error %}
+                    <p class=error><strong>Error:</strong> {{ error }}
+                  {% endif %}
             </fieldset>
 
             <div class="form-group">
@@ -86,7 +90,7 @@
     <footer class="footer-login">
         <div class="container-fluid">
             <div class="copyright pull-right">
-                IOT CA2 Project by <span class="text-info">I Owe Tea</span>
+                 IOT Smart Garden <span class="text-info">Wendler Zacariotto</span>
             </div>
         </div>
     </footer>

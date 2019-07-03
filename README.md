@@ -74,7 +74,6 @@ Plug the sensor on the following ports:
         - smartgarden/status
         - smartgarden/maxdata
         - smartgarden/readings
-        - smartgarden/login
         - smartgarden/watering
         - smartgarden/fans
     - Act (Rules):
@@ -85,10 +84,10 @@ Plug the sensor on the following ports:
         - smartgarden_maxdata
     - Certificate
 - DynamoDB:
-    - smartgarden_login (id)
     - smartgarden_maxdata (id)
     - smartgarden_readings (id, date)
     - smartgarden_status (id, date)
+- Cognito UserPool
 - Alexa Custom Skill
 - Lambda Function for the Custom Skills
 
@@ -102,6 +101,9 @@ Ensure to have:
         - private.pem.key
         - rootca.pem
     - /log
+    - Virtual Environment
+        - ```python3 -m venv .venv```
+        - ```source .venv/bin/activate```
 
 To run:
 - Server:
