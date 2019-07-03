@@ -47,12 +47,12 @@ def get_data():
         dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
         table = dynamodb.Table('smartgarden_readings')
 
-        startdate = date.today().isoformat()
-        response = table.query(KeyConditionExpression='id = :id_smartgarden AND datetimeid >= :begindate',
+        response = table.query(KeyConditionExpression='id = :id_smartgarden',
                                ExpressionAttributeValues={
-                                   ':id_smartgarden': 'id_smartgarden',
-                                   ':begindate': startdate},
-                               ScanIndexForward=False
+                                   ':id_smartgarden': 'id_smartgarden'
+                               },
+                               ScanIndexForward=False,
+                               Limit=1
                                )
 
         items = response['Items']
@@ -72,12 +72,12 @@ def get_chart_data():
         dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
         table = dynamodb.Table('smartgarden_readings')
 
-        startdate = date.today().isoformat()
-        response = table.query(KeyConditionExpression='id = :id_smartgarden AND datetimeid >= :begindate',
+        response = table.query(KeyConditionExpression='id = :id_smartgarden',
                                ExpressionAttributeValues={
-                                   ':id_smartgarden': 'id_smartgarden',
-                                   ':begindate': startdate},
-                               ScanIndexForward=False
+                                   ':id_smartgarden': 'id_smartgarden'
+                               },
+                               ScanIndexForward=False,
+                               Limit=20
                                )
 
         items = response['Items']
@@ -97,12 +97,12 @@ def get_status():
         dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
         table = dynamodb.Table('smartgarden_status')
 
-        startdate = date.today().isoformat()
-        response = table.query(KeyConditionExpression='id = :id_smartgarden AND datetimeid >= :begindate',
+        response = table.query(KeyConditionExpression='id = :id_smartgarden',
                                ExpressionAttributeValues={
-                                   ':id_smartgarden': 'id_status',
-                                   ':begindate': startdate},
-                               ScanIndexForward=False
+                                   ':id_smartgarden': 'id_status'
+                               },
+                               ScanIndexForward=False,
+                               Limit=1
                                )
 
         items = response['Items']
