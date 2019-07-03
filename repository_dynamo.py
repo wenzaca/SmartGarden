@@ -7,21 +7,6 @@ import aws_publish_raspberry_server as core
 import boto3
 
 
-def login():
-    try:
-        dynamodb = boto3.resource('dynamodb', region_name='eu-west-1')
-        table = dynamodb.Table('smartgarden_login')
-        response = table.scan()
-
-        items = response['Items']
-
-        return items
-    except:
-        import sys
-        log_util.log_error(__name__, sys.exc_info()[0])
-        log_util.log_error(__name__, sys.exc_info()[1])
-
-
 def post_max_data(data):
     try:
         new_data = {

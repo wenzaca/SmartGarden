@@ -74,7 +74,6 @@ Plug the sensor on the following ports:
         - smartgarden/status
         - smartgarden/maxdata
         - smartgarden/readings
-        - smartgarden/login
         - smartgarden/watering
         - smartgarden/fans
     - Act (Rules):
@@ -85,10 +84,10 @@ Plug the sensor on the following ports:
         - smartgarden_maxdata
     - Certificate
 - DynamoDB:
-    - smartgarden_login (id)
     - smartgarden_maxdata (id)
     - smartgarden_readings (id, date)
     - smartgarden_status (id, date)
+- Cognito UserPool
 - Alexa Custom Skill
 - Lambda Function for the Custom Skills
 
@@ -102,6 +101,9 @@ Ensure to have:
         - private.pem.key
         - rootca.pem
     - /log
+    - Virtual Environment
+        - ```python3 -m venv .venv```
+        - ```source .venv/bin/activate```
 
 To run:
 - Server:
@@ -131,10 +133,9 @@ Useful commands:
 - Create method for each sensor readings.
 - Create an spam message when the data is updates on the setting page as confirmation.
 - Change methods from GET to POST.
-- Add Cognito User Pool for authentication.
 - Run the Server on a public host.
-- Change logs from print to the Logger Library.
 - Update queries to return the latest data not per data.
 - Create new tables for Watering and Fans status.
 - Add new sensor readings methods
 - Split script from server 
+- Change session to use the flask_login lib

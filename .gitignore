@@ -27,3 +27,4 @@ six.py
 .idea
 *.DS_Store
 *.log
+*.venv
