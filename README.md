@@ -138,3 +138,4 @@ Useful commands:
 - Create new tables for Watering and Fans status.
 - Add new sensor readings methods
 - Split script from server 
+- Change session to use the flask_login lib
