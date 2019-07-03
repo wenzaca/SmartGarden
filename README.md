@@ -133,9 +133,7 @@ Useful commands:
 - Create method for each sensor readings.
 - Create an spam message when the data is updates on the setting page as confirmation.
 - Change methods from GET to POST.
-- Add Cognito User Pool for authentication.
 - Run the Server on a public host.
-- Change logs from print to the Logger Library.
 - Update queries to return the latest data not per data.
 - Create new tables for Watering and Fans status.
 - Add new sensor readings methods
