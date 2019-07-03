@@ -52,7 +52,7 @@ def get_data():
                                    ':id_smartgarden': 'id_smartgarden'
                                },
                                ScanIndexForward=False,
-                               Limit=10
+                               Limit=1
                                )
 
         items = response['Items']
