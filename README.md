@@ -128,13 +128,9 @@ Useful commands:
 - Relay: https://tutorials-raspberrypi.com/raspberry-pi-control-relay-switch-via-gpio/
 
 ## TODO
-- Update Get Setting to input value when the Setting page is opened.
 - Create CloudFormation for all the AWS environment creation.
 - Create method for each sensor readings.
-- Create an spam message when the data is updates on the setting page as confirmation.
-- Change methods from GET to POST.
 - Run the Server on a public host.
-- Update queries to return the latest data not per data.
 - Create new tables for Watering and Fans status.
 - Add new sensor readings methods
 - Split script from server 
