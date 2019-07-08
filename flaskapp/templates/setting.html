@@ -1,6 +1,14 @@
 {% extends "navbar.html" %}
 {% block content %}
     <div class="content">
+        <div class="alert alert-success alert-dismissible" id = "alert-box-success" style="display: none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="right: 0;">&times;</a>
+            <strong>Success!</strong> Data Uploaded.
+        </div>
+        <div class="alert alert-danger alert-dismissible" id = "alert-box-danger" style="display: none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="right: 0;">&times;</a>
+            <strong>Danger!</strong> Failed to upload, check the logs.
+        </div>
         <div class="container-fluid">
             <div class="col-lg-4 col-sm-6">
                 <div class="card">

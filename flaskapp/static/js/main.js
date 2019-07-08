@@ -18,7 +18,6 @@ function getStatus() {
             } else if (status == "O") {
                 autoSwitch.checked = false;
                 manualSwitch.checked = true;
-                wait(3000);
                 manualSwitch.checked = false;
             } else {
                 autoSwitch.checked = true;
@@ -73,7 +72,12 @@ function updateSettings() {
         data: jsonData,
         type: 'POST',
         success: function () {
+            $('#alert-box-success').show();
             return jsonData;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#alert-box-danger').show();
+            console.error(errorThrown)
         }
     })
 }
@@ -84,14 +88,13 @@ function getSettings() {
         url: "/api/getMaxData",
         type: 'GET',
         success: function (ndata) {
-            tempValue = ndata[0].Items.temperature;
-            humValue = ndata[0].Items.humidity;
-            soilValue = ndata[0].Items.moisture;
+            tempValue = ndata.Items[0].temperature;
+            humValue = ndata.Items[0].humidity;
+            soilValue = ndata.Items[0].moisture;
 
             $('#humMax').attr("value", humValue);
             $('#tempMax').attr("value", tempValue);
             $('#soilMax').attr("value", soilValue);
-
         }
     })
 }
@@ -131,25 +134,33 @@ function getChartData() {
             let lightArr = [];
             let timeArr = [];
 
-            chartData.forEach((e) => {
-                tempArr.push(e.Items.temperature);
-                humArr.push(e.Items.humidity);
-                soilArr.push(e.Items.moisture1);
-                lightArr.push(e.Items.light);
+            try {
+                chartData.forEach((e) => {
+                    tempArr.push(e.Items.temperature);
+                    humArr.push(e.Items.humidity);
+                    soilArr.push(e.Items.moisture1);
+                    lightArr.push(e.Items.light);
 
-                let datetime = e.datetimeid;
-                // console.log(datetime);
-                jsdatetime = new Date(Date.parse(datetime));
-                jstime = jsdatetime.toLocaleTimeString();
-                timeArr.push(jstime);
-            })
+                    let datetime = e.datetimeid;
+                    // console.log(datetime);
+                    jsdatetime = new Date(Date.parse(datetime));
+                    jstime = jsdatetime.toLocaleTimeString();
+                    timeArr.push(jstime);
+                })
+            } catch (e) {
+
+            }
 
             createGraph(tempArr, timeArr, '#tempChart');
             createGraph(humArr, timeArr, '#humChart');
             createGraph(soilArr, timeArr, '#soilChart');
             createGraph(lightArr, timeArr, '#lightChart');
 
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.error(errorThrown)
         }
+
     })
 }
 
@@ -175,8 +186,12 @@ function createGraph(data, newTime, newChart) {
             right: 50
         }
     };
+    try {
+        new Chartist.Line(newChart, chartData, options);
+    } catch (e) {
+        console.error(e)
+    }
 
-    new Chartist.Line(newChart, chartData, options);
 
 }
 
@@ -185,13 +200,11 @@ $(document).ready(function () {
     getData();
     getStatus();
     getChartData();
-    updateSettings();
     getSettings();
 
 
     setInterval(function () {
         getData();
         getChartData();
-        getSettings();
     }, 9000);
 })
