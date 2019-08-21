@@ -11,12 +11,12 @@ import RPi.GPIO as GPIO
 import log_util
 
 GPIO.setmode(GPIO.BOARD)
-DHT_SENSOR = Adafruit_DHT.DHT22
+DHT_SENSOR = Adafruit_DHT.AM2302
 
 # Pin setting
 moisture_pin = 0
-ldr_pin = 7
-dht_pin = 11
+ldr_pin = 11
+dht_pin = 4
 
 # SPI configuration (moisture):
 SPI_PORT = 0
@@ -28,8 +28,10 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 def moisture_reading(channel):
     i = 0
     data = []
-    while i < 1000:
+    while i < 100:
         value = mcp.read_adc_difference(channel)
+        log_util.log_debug(__name__, "Moisture mesure {}: {}".format(i, value))
+
         if value != 0:
             measure = (value / 1023) * 100
             data.append(measure)
@@ -39,10 +41,12 @@ def moisture_reading(channel):
 
 # Read LDR data
 def light_reading(channel):
+    log_util.log_debug(__name__, "Light sensor")
     i = 0
     data = []
-    while i < 100:
+    while i < 10:
         measure = 0.0  # Output on the pin for
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(channel, GPIO.OUT)
         GPIO.output(channel, GPIO.LOW)
         sleep(0.1)  # Change the pin back to input
@@ -57,12 +61,15 @@ def light_reading(channel):
 
 
 def air_sensor_reading(channel):
+    log_util.log_debug(__name__, "Air sensor")
     i = 0
     data_humidity = []
     data_temperature = []
-    while i < 100:
+    while i < 1:
         humidity_unvalidated, temperature_unvalidated = Adafruit_DHT.read_retry(DHT_SENSOR, channel)
-        if humidity_unvalidated != 0 and temperature_unvalidated != 0:
+        log_util.log_debug(__name__,humidity_unvalidated)
+        log_util.log_debug(__name__, temperature_unvalidated)
+        if humidity_unvalidated and temperature_unvalidated :
             data_humidity.append(humidity_unvalidated)
             data_temperature.append(temperature_unvalidated)
             i += 1
@@ -74,12 +81,12 @@ def air_sensor_reading(channel):
 while True:
     try:
         moisture = moisture_reading(moisture_pin)
+        log_util.log_info(__name__, "Moisture reading: {}".format(moisture))
         light = light_reading(ldr_pin)
+        log_util.log_info(__name__, "Light reading: {}".format(light))
         humidity, temperature = air_sensor_reading(dht_pin)
-        log_util.log_debug(__name__, "Moisture reading: {}".format(moisture))
-        log_util.log_debug(__name__, "Light reading: {}".format(light))
-        log_util.log_debug(__name__, "Temperature reading: {}".format(temperature))
-        log_util.log_debug(__name__, "Humidity reading: {}".format(humidity))
+        log_util.log_info(__name__, "Temperature reading: {}".format(temperature))
+        log_util.log_info(__name__, "Humidity reading: {}".format(humidity))
         message = {}
         message["id"] = 'id_smartgarden'
         now = datetime.datetime.now()
