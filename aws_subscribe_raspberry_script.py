@@ -35,14 +35,14 @@ def status_subscribe_action(client, userdata, message):
             "requester": "MANUAL"
         }
         log_util.log_debug(__name__, "Turned OFF Manual")
-        core.publish_watering(watering)
+        water.watering_invocation(watering)
     elif status == 'O':
         watering = {
             "action": "ON",
             "requester": "MANUAL"
         }
         log_util.log_debug(__name__, "Turned ON Manual")
-        core.publish_watering(watering)
+        water.watering_invocation(watering)
 
 
 def watering_subscribe_action(client, userdata, message):
