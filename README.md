@@ -53,13 +53,13 @@ Plug the sensor on the following ports:
 - Light: Connect to USB port from the Raspberry.
 - Fans: USB port Raspberry and open wire on Relay.
 - Pump: USB port Raspberry and open wire on Relay.
-- LDR: 3.3V, pull up capacitor of 1uF to ground and Pin 7 (GPIO 4).
+- LDR: 3.3V, pull up capacitor of 1uF to ground and Pin 11 (GPIO 27).
 - DHT22: 
 
 | Raspberry      | DHT22        | 
 | -------------- |:------------:| 
 | Pin 1 (3.3V)   | Pin 1 (VDD)  |
-| Pin 11 (GPIO27)| Pin 2 (VREF) | 
+| Pin 7 (GPIO4)| Pin 2 (VREF) | 
 |                | Pin 3        |
 | Pin 6  (GND)   | Pin 4 (GND)  |
  Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
