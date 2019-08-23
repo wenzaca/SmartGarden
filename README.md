@@ -64,6 +64,11 @@ Plug the sensor on the following ports:
     | Pin 6  (GND)   | Pin 4 (GND)  |
     
  Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
+ 
+##Schematic:
+ 
+![Hardware Schematic](./flaskapp/static/img/hardware.png)
+ 
 
 ### Cloud
 - AWS IoT:
@@ -89,8 +94,14 @@ Plug the sensor on the following ports:
     - smartgarden_readings (id, date)
     - smartgarden_status (id, date)
 - Cognito UserPool
+- EC2
+- Route 53
 - Alexa Custom Skill
 - Lambda Function for the Custom Skills
+
+##Schematic
+
+![Hardware Schematic](./flaskapp/static/img/aws.png)
 
 ## How to run
 Ensure to have:
@@ -108,11 +119,11 @@ Ensure to have:
 
 To run:
 - Server:
-    - ```pip3 install -r requirements -t .```
-    - ```sudo nohup server.py &```
+    - ```pip3 install -r requirements_server.txt -t .```
+    - ```sudo nohup python3 server.py &```
 - Script (readings):
-    - ```pip3 install -r requirements -t .```
-    - ```sudo nohup script.py &```
+    - ```pip3 install -r requirements_scripts.txt -t .```
+    - ```sudo nohup python3 script.py &```
     
 Useful commands:
 - Get IP: ```ping raspberrypi.local```
@@ -130,9 +141,6 @@ Useful commands:
 
 ## TODO
 - Create CloudFormation for all the AWS environment creation.
-- Create method for each sensor readings.
-- Run the Server on a public host.
 - Create new tables for Watering and Fans status.
-- Add new sensor readings methods
 - Split script from server 
 - Change session to use the flask_login lib

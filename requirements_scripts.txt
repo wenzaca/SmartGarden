@@ -7,3 +7,4 @@ flask_wtf==0.14.2
 schedule==0.6.0
 Adafruit-MCP3008==1.0.2
 Adafruit_DHT==1.4.0
+.txt
