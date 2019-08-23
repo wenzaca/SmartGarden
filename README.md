@@ -34,7 +34,7 @@ The user is also able to control the system using Alexa assistant. Check the Sma
 
 Plug the sensor on the following ports:
 
-![RaspberyPI](./flaskapp/static/img/rasp.png)
+![RaspberyPI](https://github.com/wenzaca/SmartGardenServer/blob/master/flaskapp/static/img/Rasp.png)
 
 - Relay Board Watering: Pin 38 (GPIO20).
 - Relay Board Fans: Pin 40 (GPIO21).
@@ -56,12 +56,12 @@ Plug the sensor on the following ports:
 - LDR: 3.3V, pull up capacitor of 1uF to ground and Pin 11 (GPIO 27).
 - DHT22: 
 
-    | Raspberry      | DHT22        | 
-    | -------------- |:------------:| 
-    | Pin 1 (3.3V)   | Pin 1 (VDD)  |
-    | Pin 7 (GPIO4)  | Pin 2 (VREF) | 
-    |                | Pin 3        |
-    | Pin 6  (GND)   | Pin 4 (GND)  |
+| Raspberry      | DHT22        | 
+| -------------- |:------------:| 
+| Pin 1 (3.3V)   | Pin 1 (VDD)  |
+| Pin 7 (GPIO4)| Pin 2 (VREF) | 
+|                | Pin 3        |
+| Pin 6  (GND)   | Pin 4 (GND)  |
  Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
 
 ### Cloud
