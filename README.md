@@ -65,7 +65,7 @@ Plug the sensor on the following ports:
     
  Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
  
-##Schematic:
+## Schematic:
  
 ![Hardware Schematic](./flaskapp/static/img/hardware.png)
  
@@ -99,7 +99,7 @@ Plug the sensor on the following ports:
 - Alexa Custom Skill
 - Lambda Function for the Custom Skills
 
-##Schematic
+## Schematic
 
 ![Hardware Schematic](./flaskapp/static/img/aws.png)
 
