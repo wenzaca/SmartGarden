@@ -60,7 +60,7 @@ Plug the sensor on the following ports:
     | -------------- |:------------:| 
     | Pin 1 (3.3V)   | Pin 1 (VDD)  |
     | Pin 7 (GPIO4)  | Pin 2 (VREF) | 
-    |                | Pin 3        |
+    | Not Connected  | Pin 3        |
     | Pin 6  (GND)   | Pin 4 (GND)  |
     
  Note: DHT22 Pin 2 need to have pull up resistor (4.7k – 10kΩ)
