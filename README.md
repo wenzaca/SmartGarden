@@ -71,7 +71,7 @@ Ensure to have:
 
 To run:
 - Server:
-    - ```pip3 install -r requirements_server.txt -t .```
+    - ```pip3 install -r requirements.txt -t .```
     - ```sudo nohup python3 server.py &```
     
 Useful commands:
