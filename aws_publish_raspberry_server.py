@@ -1,8 +1,9 @@
 # Import SDK packages
 import json
-import log_util
 
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
+
+import log_util
 
 topic_status = "smartgarden/status"
 topic_watering = "smartgarden/watering"

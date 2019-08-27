@@ -1,14 +1,16 @@
 import sys
 
-import jsonconverter as jsonc
-import repository_dynamo
+import boto3
 from flask import render_template, url_for, redirect, request, jsonify, session
+
+import jsonconverter as jsonc
+import log_util
+import repository_dynamo
 from flaskapp import app
 from flaskapp.forms import LoginForm
-import log_util
-import boto3
 
 cognito = client = boto3.client('cognito-idp')
+
 
 # login
 @app.route("/login", methods=['GET', 'POST'])
@@ -20,17 +22,18 @@ def login():
         if form.validate_on_submit():
             try:
                 cognito.admin_initiate_auth(AuthFlow='ADMIN_NO_SRP_AUTH',
-                                      AuthParameters={
-                                          'USERNAME': form.username.data,
-                                          'PASSWORD': form.password.data
-                                      },
-                                      ClientId='2v3e93opl3akulijav5eusliov',
-                                      UserPoolId='eu-west-1_g70ijojs5')
+                                            AuthParameters={
+                                                'USERNAME': form.username.data,
+                                                'PASSWORD': form.password.data
+                                            },
+                                            ClientId='2v3e93opl3akulijav5eusliov',
+                                            UserPoolId='eu-west-1_g70ijojs5')
                 session['logged_in'] = True
                 log_util.log_debug(__name__, "User Logged in correctly, username: {}".format(form.username.data))
                 return redirect(url_for('dashboard'))
             except (cognito.exceptions.NotAuthorizedException, cognito.exceptions.UserNotFoundException) as e:
-                log_util.log_error(__name__, "User not authenticate, username: {}. Error: {}".format(form.username.data, e))
+                log_util.log_error(__name__,
+                                   "User not authenticate, username: {}. Error: {}".format(form.username.data, e))
                 return render_template('login.html', title='Login', error="Incorrect username or password.", form=form)
     return render_template('login.html', title='Login', form=form)
 
