@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+import os
+
+if os.path.isdir('./log') is False:
+    os.mkdir('./log')
+
 from flaskapp import app
 
 if __name__ == '__main__':

@@ -5,6 +5,10 @@ from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
 import log_util
 
+log_util.log_info(__name__, '#################################################################################')
+log_util.log_info(__name__, '#############################  INITIALIZING SERVER  #############################')
+log_util.log_info(__name__, '#################################################################################')
+
 topic_status = "smartgarden/status"
 topic_watering = "smartgarden/watering"
 topic_readings = "smartgarden/readings"
