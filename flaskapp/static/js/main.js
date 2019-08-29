@@ -109,11 +109,14 @@ function getData() {
             humValue = ndata[0].Items.humidity;
             soilValue = ndata[0].Items.moisture1;
             lightValue = ndata[0].Items.light;
+            timeStamp = ndata[0].datetimeid;
+            dateTimeStamp = new Date(Date.parse(timeStamp));
 
             $('#tempValue').html(tempValue);
             $('#humValue').html(humValue);
             $('#soilValue').html(soilValue);
             $('#lightValue').html(lightValue);
+            $('#dateTimeStamp').html(dateTimeStamp.toLocaleTimeString() + " " + dateTimeStamp.toLocaleDateString());
         }
     })
 }
@@ -147,18 +150,18 @@ function getChartData() {
                     jstime = jsdatetime.toLocaleTimeString();
                     timeArr.push(jstime);
                 })
+
+
             } catch (e) {
 
             }
-
             createGraph(tempArr, timeArr, '#tempChart');
             createGraph(humArr, timeArr, '#humChart');
             createGraph(soilArr, timeArr, '#soilChart');
             createGraph(lightArr, timeArr, '#lightChart');
-
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.error(errorThrown)
+
         }
 
     })
@@ -199,7 +202,6 @@ function createGraph(data, newTime, newChart) {
 $(document).ready(function () {
     getData();
     getStatus();
-    getChartData();
     getSettings();
 
 
