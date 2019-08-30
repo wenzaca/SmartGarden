@@ -4,3 +4,6 @@
 *.venv
 *certs*
 *__pycache__*
+*.egg*
+dist
+build

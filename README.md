@@ -53,7 +53,7 @@ The server that runs on the Raspberry PI is available on a third [project](https
 
 ## Schematic
 
-![Cloud Schematic](./flaskapp/static/img/aws.png)
+![Cloud Schematic](src/flaskapp/static/img/aws.png)
 
 ## How to run
 Ensure to have:

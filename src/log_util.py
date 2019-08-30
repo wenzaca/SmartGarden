@@ -1,8 +1,8 @@
 import logging
 import logging.config
 
-logging.config.fileConfig(fname='logger.ini', disable_existing_loggers=False)
-logging.FileHandler('log/SmartGarden.log')
+logging.config.fileConfig(fname='../conf/logger.ini', disable_existing_loggers=False)
+logging.FileHandler('../log/SmartGarden.log')
 
 
 def log_info(name, log):
