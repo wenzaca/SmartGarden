@@ -1,0 +1,82 @@
+{% extends "navbar.html" %}
+{% block content %}
+    <div class="content">
+        <div class="alert alert-success alert-dismissible" id = "alert-box-success" style="display: none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="right: 0;">&times;</a>
+            <strong>Success!</strong> Data Uploaded.
+        </div>
+        <div class="alert alert-danger alert-dismissible" id = "alert-box-danger" style="display: none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" style="right: 0;">&times;</a>
+            <strong>Danger!</strong> Failed to upload, check the logs.
+        </div>
+        <div class="container-fluid">
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="icon-big icon-danger text-center">
+                                    <i class="fas fa-temperature-high"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="numbers">
+                                    <p>Temperature</p>
+                                    <input class="input-sm" id="tempMax" type="number" min="-20" max="40"><label
+                                        class="label">&#176;C</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="icon-big icon-info text-center">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="numbers">
+                                    <p>Humidity</p>
+                                    <input class="input-sm" id="humMax" type="number" min="0" max="100"><label
+                                        class="label">%</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="numbers">
+                                    <p>Soil Moisture</p>
+                                    <input class="input-sm" id="soilMax" type="number" min="0" max="100"><label
+                                        class="label">%</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content align-center" style="left: 50%;right: 50%;position: relative;bottom: 12px;top: 15px;">
+            <label class="toggleBtn">
+                <button class="btn btn-default btn-fill btn-wd" onclick="updateSettings()">Submit</button>
+            </label>
+        </div>
+    </div>
+
+    </div>
+{% endblock content %}
