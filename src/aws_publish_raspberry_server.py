@@ -3,7 +3,7 @@ import json
 
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
-import log_util
+from src import log_util
 
 log_util.log_info(__name__, '#################################################################################')
 log_util.log_info(__name__, '#############################  INITIALIZING SERVER  #############################')
@@ -15,9 +15,9 @@ topic_readings = "smartgarden/readings"
 topic_max_data = "smartgarden/maxdata"
 
 host = "arkau3u0cw2s4-ats.iot.eu-west-1.amazonaws.com"
-rootCAPath = "certs/rootca.pem"
-certificatePath = "certs/certificate.pem.crt"
-privateKeyPath = "certs/private.pem.key"
+rootCAPath = "./certs/rootca.pem"
+certificatePath = "./certs/certificate.pem.crt"
+privateKeyPath = "./certs/private.pem.key"
 
 # Stablishing MQTT Connection
 my_rpi = AWSIoTMQTTClient("Raspbery_Core")

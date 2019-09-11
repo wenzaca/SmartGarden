@@ -53,26 +53,26 @@ The server that runs on the Raspberry PI is available on a third [project](https
 
 ## Schematic
 
-![Cloud Schematic](./flaskapp/static/img/aws.png)
+![Cloud Schematic](src/flaskapp/static/img/aws.png)
 
 ## How to run
 Ensure to have:
 - Installed python3.
-- Installed and configured your AWS CLI (with a role that has permission to access Dynamodb and AWS IoT).
-- Created folders:
-    - /certs
-        - certificate.pem.crt
-        - private.pem.key
-        - rootca.pem
-    - /log
-    - Virtual Environment
-        - ```python3 -m venv .venv```
-        - ```source .venv/bin/activate```
+- Installed and configured your AWS CLI (with a role that has permission to access Dynamodb, AWS IoT and S3 Bucket).
+- Have an S3 Bucket with the certificates in the following name pattern:
+    - 'rootca.pem' the Root CA certificate;
+    - 'certificate.pem.crt' for the IoT Certificate attached to the things;
+    - 'private.pem.key' for the private key attached to the things.
+- Virtual Environment
+     - ```python3 -m venv .venv```
+     - ```source .venv/bin/activate```
+     - ```pip3 install SmartGarden```
 
 To run:
 - Server:
-    - ```pip3 install -r requirements.txt -t .```
-    - ```sudo nohup python3 server.py &```
+    - ```pip3 setup.py install```
+    - Locally:```sudo nohup smart_garden [-h] [--profile_name PROFILE_NAME] --s3-bucket S3_BUCKET [--aws_region AWS_REGION] --port 5000```
+    - Not Locally: ```sudo nohup smart_garden [-h] [--profile_name PROFILE_NAME] --s3-bucket S3_BUCKET [--aws_region AWS_REGION] --port 80```
     
 Useful commands:
 - Get IP: ```ping raspberrypi.local```
@@ -80,6 +80,12 @@ Useful commands:
 - Transfer File: ```scp filename pi@IP:/home/pi```
 - Find server process (MAC): ```netstat -vanp tcp | grep 5000```
 - Kill process: ```kill [port number]```
+
+## How to Deploy
+- Generete the Distribution file: ```python3 setup.py install bdist_wheel --universal sdist```
+- Upload to Pypi: ```twine upload dist/*```
+- Upload to Pypi Test: ```twine upload --repository-url https://test.pypi.org/legacy/ dist/*```
+
 
 ## References
 - [Project Reference](https://www.hackster.io/mokxf16/smart-garden-raspberry-pi-arduino-65c7b7)

@@ -1,0 +1,8 @@
+include LICENSE
+include README.md
+include conf/logger.ini
+include src/flaskapp/templates/*
+include src/flaskapp/static/css/*
+include src/flaskapp/static/js/*
+include src/flaskapp/static/img/*
+include src/flaskapp/static/fonts/*

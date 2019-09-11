@@ -2,8 +2,7 @@ import datetime as datetime
 
 import boto3
 
-import aws_publish_raspberry_server as core
-import log_util
+from src import aws_publish_raspberry_server as core, log_util
 
 
 def post_max_data(data):

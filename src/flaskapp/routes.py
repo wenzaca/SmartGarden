@@ -3,11 +3,9 @@ import sys
 import boto3
 from flask import render_template, url_for, redirect, request, jsonify, session
 
-import jsonconverter as jsonc
-import log_util
-import repository_dynamo
-from flaskapp import app
-from flaskapp.forms import LoginForm
+from src import jsonconverter as jsonc, repository_dynamo, log_util
+from src.flaskapp import app
+from src.flaskapp.forms import LoginForm
 
 cognito = client = boto3.client('cognito-idp')
 

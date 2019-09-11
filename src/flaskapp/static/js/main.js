@@ -203,7 +203,7 @@ $(document).ready(function () {
     getData();
     getStatus();
     getSettings();
-
+    getChartData();
 
     setInterval(function () {
         getData();
