@@ -1,5 +1,5 @@
 Flask==1.1.1
 boto3==1.9.220
 AWSIoTPythonSDK==1.4.7
-numpy==1.17.1
+numpy==1.22.0
 flask_wtf==0.14.2
