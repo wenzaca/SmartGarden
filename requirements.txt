@@ -1,4 +1,4 @@
-Flask==1.1.1
+Flask==2.3.2
 boto3==1.9.220
 AWSIoTPythonSDK==1.4.7
 numpy==1.17.1
